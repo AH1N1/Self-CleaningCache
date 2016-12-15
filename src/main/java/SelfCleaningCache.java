@@ -76,14 +76,11 @@ public class SelfCleaningCache<T> {
                                 if (MyList.size() > 0 && System.currentTimeMillis() - MyList.get(i).getMillis() > millis)
                                     MyList.remove(i);
                             }
-
-
-                            Thread.sleep(3000);
+                            Thread.sleep(millis);
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-
                 }
             }
         });
@@ -96,7 +93,18 @@ public class SelfCleaningCache<T> {
         return MyList.size();
     }
 
-    public static void main(String[] args) {
-        System.out.println("a");
+    public static void main(String[] args) throws InterruptedException {
+        SelfCleaningCache<String> selfCleaningCache = new SelfCleaningCache<String>(2000);
+        selfCleaningCache.add("someString");
+        System.out.println("created new cache with 'millis' set to 2000");
+        System.out.println("cache storages "+ selfCleaningCache.size()+" object");
+        System.out.println("main thread going to sleep for 1 sec");
+        Thread.sleep(1000);
+        System.out.println("main thread woke up");
+        System.out.println("after 1 sec cache storages "+ selfCleaningCache.size()+ " object");
+        System.out.println("main thread going to sleep for 3 sec");
+        Thread.sleep(3000);
+        System.out.println("main thread woke up");
+        System.out.println("after 3 sec cache storages "+ selfCleaningCache.size()+ " objects");
     }
 }
