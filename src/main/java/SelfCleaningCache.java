@@ -1,4 +1,4 @@
-;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,30 +9,30 @@ import java.util.List;
 public class SelfCleaningCache<T> {
     //inner generic class that stores given data and the time it was last red
     private class Pair<T> {
-        private Long milis;
+        private Long millis;
         private T data;
 
         public Pair(T data) {
             this.data = data;
-            milis = System.currentTimeMillis();
+            millis = System.currentTimeMillis();
         }
 
-        public Pair(T data, Long milis) {
-            this.milis = milis;
+        public Pair(T data, Long millis) {
+            this.millis = millis;
             this.data = data;
         }
 
-        public void setMilis(Long milis) {
-            this.milis = milis;
+        public void setMillis(Long millis) {
+            this.millis = millis;
         }
 
         public void setData(T data) {
             this.data = data;
         }
 
-        public Long getMilis() {
+        public Long getMillis() {
 
-            return milis;
+            return millis;
         }
 
         public T getData() {
@@ -60,7 +60,7 @@ public class SelfCleaningCache<T> {
     // returns selected data stored in MyList and sets its millis to current time. Data is selected by its index;
     public T get(int index) {
         T tmp = (T) MyList.get(index).getData();
-        MyList.get(index).setMilis(System.currentTimeMillis());
+        MyList.get(index).setMillis(System.currentTimeMillis());
         return tmp;
     }
 
@@ -73,7 +73,7 @@ public class SelfCleaningCache<T> {
                     try {
                         if (MyList.size() != 0) {
                             for (int i = 0; i < MyList.size(); i++) {
-                                if (MyList.size() > 0 && System.currentTimeMillis() - MyList.get(i).getMilis() > millis)
+                                if (MyList.size() > 0 && System.currentTimeMillis() - MyList.get(i).getMillis() > millis)
                                     MyList.remove(i);
                             }
 
